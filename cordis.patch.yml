@@ -1,0 +1,7 @@
+- insert:
+    - id: git-tree-viz
+      name: dsh-plugin-git-tree-viz
+      config:
+        gitTimeoutMs: 120000
+        maxOutputBytes: 134217728
+        maxPatchCharacters: 200000

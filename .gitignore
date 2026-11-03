@@ -1,0 +1,9 @@
+node_modules/
+.local/
+*.log
+*.tgz
+tmp*/
+.env*
+!.env.example
+.DS_Store
+tsconfig.local.json

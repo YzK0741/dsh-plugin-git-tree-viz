@@ -1,0 +1,22 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+test('Client artifact follows the native closure-factory protocol and returns a Cordis contribution',async()=>{
+  let registration;const context=vm.createContext({window:{__ModuleLoader__:{load:value=>{registration=value;}}}});
+  const artifact=await readFile(new URL('../lib/client.js',import.meta.url),'utf8');
+  assert.doesNotMatch(artifact,/new Function\(|eval\(|<iframe|srcdoc=/);
+  vm.runInContext(artifact,context);assert.equal(registration.id,'dsh-plugin-git-tree-viz');
+  const plugin=registration.factory(name=>{assert.equal(name,'react');return {};});
+  assert.equal(typeof plugin.apply,'function');assert.equal(typeof plugin.GitTreePanel,'function');
+  const registrations=[],effects=[];
+  const locale={register:()=>()=>{},bind:()=>key=>key,getSnapshot:()=>({active:'en'}),subscribe:()=>()=>{}};
+  const themeSnapshot={active:{colorScheme:'dark'}};let themeListener;
+  plugin.apply({effect:fn=>effects.push(fn()),on:(event,fn)=>{assert.equal(event,'theme/change');themeListener=fn;return ()=>{themeListener=undefined;};},slots:{inject:(slot,fn)=>fn(),register:(options,component)=>{registrations.push({options,component});return ()=>{};}},connection:{rpc:{call(){}},generation:{}},locale,theme:{getTheme:()=>themeSnapshot}});
+  assert.deepEqual(registrations.map(row=>row.options.name),['main','sidebar.panellist']);
+  assert.equal(registrations[0].options.key,'git-tree-viz');assert.equal(registrations[1].options.id,'git-tree-viz');
+  const face=registrations[0].options.inject();
+  assert.equal(face.theme.getSnapshot(),themeSnapshot);
+  let updates=0;const unsubscribe=face.theme.subscribe(()=>updates++);
+  themeListener(themeSnapshot);assert.equal(updates,1);unsubscribe();assert.equal(themeListener,undefined);
+});
