@@ -32,12 +32,13 @@ export function GitTreePanel(props:PanelProps){
   useEffect(()=>{view.current?.setTheme(theme.active.colorScheme);},[theme.active.colorScheme]);
   useEffect(()=>{view.current?.setRepository(repo);},[repo]);
   useEffect(()=>{view.current?.resetAccess();},[generation]);
-  return <div style={{height:'100%',minHeight:0,overflow:'auto',display:'flex',flexDirection:'column'}}>
-    <div style={{padding:'8px 14px',display:'flex',gap:10,alignItems:'center',flexWrap:'wrap',borderBottom:'1px solid var(--dsw-alias-border-l1,#30373c)',fontSize:12}}>
+  // Opt into Harness's bounded view area; the transcript layout grows with its content.
+  return <div data-conversation-composer-overlay="" style={{height:'100%',width:'100%',flex:1,minHeight:0,minWidth:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
+    <div style={{flexShrink:0,padding:'8px 14px',display:'flex',gap:10,alignItems:'center',flexWrap:'wrap',borderBottom:'1px solid var(--dsw-alias-border-l1,#30373c)',fontSize:12}}>
       <span>{props.t('workspace')} · {currentWorkspace?.title??props.t('missing')}</span>
       <span style={{opacity:.6,fontSize:11}}>{props.t('automatic')}</span>
     </div>
-    <div ref={container} style={{flex:1,minHeight:640,minWidth:360,width:'100%'}} tabIndex={-1}/>
+    <div ref={container} style={{flex:1,minHeight:0,minWidth:0,width:'100%',overflow:'hidden'}} tabIndex={-1}/>
   </div>;
 }
 /** Contribute alongside Chat/Trajectory/Context, with Harness supplying the scoped session id. */

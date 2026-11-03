@@ -34,3 +34,10 @@
 - Remount on session/path changes to reset graph state and write grants, including when a session has no workspace.
 - Regression verifies slot placement, multiple-workspace matching, live path changes and missing-workspace behavior. `npm run check`: typecheck/build and 10 tests pass.
 - Installed 0.1.1 into the user's `web` profile and reloaded the local service. Real conversation smoke automatically resolved `deren` and loaded 1,774 commits without manual path entry; native narrow-layout overflow menu includes Git history alongside Trajectory/Context.
+
+## 0.1.2: independent tree/detail scrolling
+
+- Root cause: the conversation transcript's active view uses content-sized flex items. Without Harness's `data-conversation-composer-overlay` opt-in, the SVG's full 95,848px height expanded the plugin and scrolled the entire conversation, taking details out of view.
+- Adopt the same bounded view contract as Harness's trajectory tab, remove the 640px minimum/outer scrolling, and keep tree and detail content as independent scrollers. Add scroll containment and composer clearance; compact short viewports keep a usable graph area.
+- Watched the native-layout regression fail before the fix, then pass. Full validation: 10 tests; after CSS refinements, rebuilt and reran both frontend regressions successfully.
+- Actual Harness verification: outer viewport and scroll height both 316px; tree viewport 224px with the full history inside it. At tree scrollTop 95,623px, outer scrollTop stayed 0 and detail top stayed 160.98px. Installed the final tarball into the daily web profile.

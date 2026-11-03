@@ -24,7 +24,7 @@ test('Client artifact follows the native closure-factory protocol and returns a 
   let rows=[{workspaceId:'other',title:'Other',path:'C:/wrong',sessionIds:['other-session']},{workspaceId:'active',title:'Active',path:'C:/right/subdirectory',sessionIds:['active-session']}];
   const repositories=[];let cleared=0;
   const props={...face,sessionId:'active-session',generation:{subscribe:()=>()=>{},getSnapshot:()=>1},useWorkspaces:selector=>selector({items:rows}),t:key=>key};
-  const render=()=>{refIndex=0;pendingEffects.length=0;plugin.GitTreePanel(props);refs[1].current={setLocale(){},setTheme(){},setRepository:repo=>repositories.push(repo),resetAccess(){cleared++;}};for(const effect of pendingEffects)effect();};
+  const render=()=>{refIndex=0;pendingEffects.length=0;const panel=plugin.GitTreePanel(props);assert.equal(panel.props['data-conversation-composer-overlay'],'');assert.equal(panel.props.style.overflow,'hidden');assert.equal(panel.children[1].props.style.minHeight,0);refs[1].current={setLocale(){},setTheme(){},setRepository:repo=>repositories.push(repo),resetAccess(){cleared++;}};for(const effect of pendingEffects)effect();};
   render();assert.equal(repositories.at(-1),'C:/right/subdirectory');
   rows=[{...rows[1],path:'D:/moved-repository'}];render();assert.equal(repositories.at(-1),'D:/moved-repository');
   props.sessionId='unknown-session';render();assert.equal(repositories.at(-1),'');assert.equal(cleared,3);

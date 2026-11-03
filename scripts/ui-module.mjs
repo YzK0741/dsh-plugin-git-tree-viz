@@ -6,6 +6,10 @@ export async function uiModule(){
   const css=styles.replaceAll(':root',':host').replaceAll('html,body',':host').replaceAll('html, body',':host').replaceAll('html[lang=', '#git-tree-root[lang=').replace(/\bbody\{/g,'#git-tree-root{').replaceAll('height:100dvh','height:100%').replaceAll('position:fixed;bottom:46px','position:absolute;bottom:46px')+`
     :host{display:block;height:100%;width:100%;color:var(--text);--bg:var(--dsw-alias-bg-base,#101316);--panel:var(--dsw-alias-bg-layer-1,#15191d);--raised:var(--dsw-alias-bg-layer-2,#1c2227);--border:var(--dsw-alias-border-l1,#2a3036)}
     #git-tree-root{height:100%;min-height:0;position:relative;overflow:hidden}#languageSelect{display:none}.brand{pointer-events:none}
+    :host{container:git-tree-panel/size}#detail,#detailContent{min-height:0}#scroller,#detailContent{overscroll-behavior:contain}
+    #detailContent{padding-bottom:calc(22px + var(--dsh-composer-height,152px))}#scroller{padding-bottom:var(--dsh-composer-height,152px);box-sizing:border-box;scroll-padding-bottom:var(--dsh-composer-height,152px)}
+    @container git-tree-panel (max-height:480px){.overview{display:none}#topbar{padding:6px 12px;height:auto;gap:8px}.brand{display:none}.toolbar{padding:6px 12px;max-height:88px;overflow:auto;flex-shrink:0}.graph-caption,.graph-footer{display:none}}
+    @container git-tree-panel (max-height:300px){#topbar{display:none}.toolbar{max-height:52px}}
     :host([data-theme=light]){--bg:#f6f8fa;--panel:#fff;--raised:#eef2f5;--border:#d4dce3;--text:#25303b;--muted:#657380;--accent:#28754c}
     :host([data-theme=light]) .toolbar,:host([data-theme=light]) .export-panel{background:var(--panel)}
     :host([data-theme=light]) .graph-caption,:host([data-theme=light]) .detail-top{border-color:var(--border)}

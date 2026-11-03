@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-git-tree-viz",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Native Git history explorer for DeepSeek Harness: graphs, diffs, sorting, exports and safe local tags.",
   "type": "module",
   "license": "MIT",
