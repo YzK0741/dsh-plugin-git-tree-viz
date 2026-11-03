@@ -12,7 +12,7 @@
 - [x] Mount the existing UI as a native panel, subscribe to locale/theme and bind repository selection to workspace context.
 - [x] Run frontend regressions, package/type/build checks, clean install and real Harness UI smoke tests.
 - [x] Review final changes and resolve the review's two lifecycle findings.
-- [ ] Publish GitHub/npm after the agreed publication procedure (user deferred this step).
+- [x] Publish GitHub/npm after the agreed publication procedure.
 
 ## Decisions and evidence
 
@@ -41,3 +41,10 @@
 - Adopt the same bounded view contract as Harness's trajectory tab, remove the 640px minimum/outer scrolling, and keep tree and detail content as independent scrollers. Add scroll containment and composer clearance; compact short viewports keep a usable graph area.
 - Watched the native-layout regression fail before the fix, then pass. Full validation: 10 tests; after CSS refinements, rebuilt and reran both frontend regressions successfully.
 - Actual Harness verification: outer viewport and scroll height both 316px; tree viewport 224px with the full history inside it. At tree scrollTop 95,623px, outer scrollTop stayed 0 and detail top stayed 160.98px. Installed the final tarball into the daily web profile.
+
+## Publication
+
+- Public MIT repository: https://github.com/YzK0741/dsh-plugin-git-tree-viz
+- GitHub release and installation archive: https://github.com/YzK0741/dsh-plugin-git-tree-viz/releases/tag/v0.1.2
+- npm: https://www.npmjs.com/package/dsh-plugin-git-tree-viz (0.1.2, latest).
+- Official-registry metadata confirms version, MIT license and repository URL. Downloaded the public npm tarball and verified its SHA-256 exactly matches the GitHub release archive: `8c9771dfd7484947147c9d3d2376a6265ccba11552eb7b7cd70d1c9311a48ea0`.
