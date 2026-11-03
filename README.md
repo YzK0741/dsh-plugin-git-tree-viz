@@ -6,7 +6,7 @@ Native Git history explorer for DeepSeek Harness. MIT licensed. No Python, extra
 
 - Interactive SVG branch graph and commit details, with parent/child navigation and file diffs.
 - Chinese/English UI following the Harness language; light/dark presentation follows its theme.
-- Workspace picker, current conversation workspace discovery, and explicit local repository paths.
+- Conversation tab alongside Chat, Trajectory and Context, automatically following that conversation's workspace and repository. Manual repository paths remain available.
 - Type filters, search, time/line-change/file-count sorting in both directions; non-time rankings omit graph edges.
 - Export any committed version as a file snapshot or independent Git repository, optionally on a new branch.
 - Read-only by default. Explicit warning confirmation enables local tags and one-click rollback of all unchanged app-created tags. Tags must be pushed manually.
@@ -30,10 +30,10 @@ For a local package, build and pack, then install the resulting tarball:
 npm ci --ignore-scripts --legacy-peer-deps
 npm run check
 npm pack --ignore-scripts
-dsh plugin --profile web add /absolute/path/dsh-plugin-git-tree-viz-0.1.0.tgz
+dsh plugin --profile web add /absolute/path/dsh-plugin-git-tree-viz-0.1.1.tgz
 ```
 
-Open **Git history** in the Harness sidebar. Choose a workspace, or enter a repository path. The main view keeps graph interactions inside its own ShadowRoot and uses the existing authenticated Connection carrier for all Git operations.
+Open a conversation and select **Git history** alongside Chat, Trajectory and Context. Its repository follows that conversation's workspace automatically, including workspaces inside a Git subdirectory. Changing the conversation or workspace resets the graph and write access. If needed, enter another repository path manually. The view keeps graph interactions inside its own ShadowRoot and uses the existing authenticated Connection carrier for all Git operations.
 
 The package includes its built `lib/` artifacts; installing a release or Git checkout does not need an install/prepare script. Development dependencies are not runtime dependencies.
 

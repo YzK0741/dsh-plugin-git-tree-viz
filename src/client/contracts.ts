@@ -6,10 +6,8 @@ declare module '@deepseek-ai/cordis' {
 }
 /** Read-only lifecycle-owned snapshot source supplied by Harness. */
 export interface Observable<T>{getSnapshot():T;subscribe(callback:()=>void):()=>void}
-/** Workspace fields consumed by the native repository picker. */
+/** Workspace fields used to find the current conversation's repository. */
 export interface WorkspaceRow {workspaceId:string;path:string;title:string;sessionIds:readonly string[]}
-/** Session catalog fields needed to locate the selected workspace. */
-export interface SessionRow {id:string;retainedBy?:Readonly<Record<string,number>>}
 /** Platform-neutral native panel business face. */
 export interface PanelFace {
   request:(endpoint:string,payload:unknown,signal?:AbortSignal)=>Promise<{ok:true;value:unknown}|{ok:false;error:{code:string;message:string;details:object}}>;
@@ -17,10 +15,10 @@ export interface PanelFace {
   theme:Observable<{active:{colorScheme:'light'|'dark'}}>;
   generation:Observable<unknown>;
 }
-/** Standard hooks are supplied by Harness for root-scoped panel components. */
+/** Harness supplies the session id for the conversation.view scope and global workspace hook. */
 export interface PanelProps extends PanelFace {
+  sessionId:string;
   useWorkspaces:<T>(selector:(state:{items:readonly WorkspaceRow[]})=>T)=>T;
-  useSessions:<T>(selector:(state:{byId:Readonly<Record<string,SessionRow>>})=>T)=>T;
   t:(key:string)=>string;
 }
 /** Native view adapter keeps all standalone DOM state inside one ShadowRoot. */

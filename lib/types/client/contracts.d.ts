@@ -15,17 +15,12 @@ export interface Observable<T> {
     getSnapshot(): T;
     subscribe(callback: () => void): () => void;
 }
-/** Workspace fields consumed by the native repository picker. */
+/** Workspace fields used to find the current conversation's repository. */
 export interface WorkspaceRow {
     workspaceId: string;
     path: string;
     title: string;
     sessionIds: readonly string[];
-}
-/** Session catalog fields needed to locate the selected workspace. */
-export interface SessionRow {
-    id: string;
-    retainedBy?: Readonly<Record<string, number>>;
 }
 /** Platform-neutral native panel business face. */
 export interface PanelFace {
@@ -50,13 +45,11 @@ export interface PanelFace {
     }>;
     generation: Observable<unknown>;
 }
-/** Standard hooks are supplied by Harness for root-scoped panel components. */
+/** Harness supplies the session id for the conversation.view scope and global workspace hook. */
 export interface PanelProps extends PanelFace {
+    sessionId: string;
     useWorkspaces: <T>(selector: (state: {
         items: readonly WorkspaceRow[];
-    }) => T) => T;
-    useSessions: <T>(selector: (state: {
-        byId: Readonly<Record<string, SessionRow>>;
     }) => T) => T;
     t: (key: string) => string;
 }

@@ -25,3 +25,12 @@
 - Native UI exported the selected commit into an independent Git repository on `review/native`; disk verification matched the selected hash and confirmed the test tag was removed.
 - Fresh review found delayed disposal erasing a replacement view and pending graph cancellation querying cleared DOM. Both fixed and regression-tested; follow-up review confirmed resolution.
 - Small native panels scroll with a minimum 360px graph width and 640px content height, preventing toolbar wrapping from collapsing the graph.
+
+## 0.1.1: conversation tab and automatic workspace
+
+- User requested Git history beside Chat/Trajectory/Context, following the opened workspace.
+- Register `conversation.view` at order 30 instead of the global main/sidebar entries. Harness supplies the exact scoped `sessionId`; match it against the workspace catalog's session membership, without choosing an unrelated retained session or sole workspace.
+- Remove the workspace selector; show the associated workspace and automatically mount its repository. Git resolves nested workspace paths to the root. Keep the existing manual path field as an explicit override within that mounted view.
+- Remount on session/path changes to reset graph state and write grants, including when a session has no workspace.
+- Regression verifies slot placement, multiple-workspace matching, live path changes and missing-workspace behavior. `npm run check`: typecheck/build and 10 tests pass.
+- Installed 0.1.1 into the user's `web` profile and reloaded the local service. Real conversation smoke automatically resolved `deren` and loaded 1,774 commits without manual path entry; native narrow-layout overflow menu includes Git history alongside Trajectory/Context.
