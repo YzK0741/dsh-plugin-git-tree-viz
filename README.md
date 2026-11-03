@@ -18,7 +18,7 @@ This first version targets the DeepSeek Harness **0.2.2-alpha.2** native Client/
 
 ## Install
 
-After an npm release, install into the profile you actually use:
+Install into the profile you actually use:
 
 ```sh
 dsh plugin --profile web add dsh-plugin-git-tree-viz
@@ -30,7 +30,7 @@ For a local package, build and pack, then install the resulting tarball:
 npm ci --ignore-scripts --legacy-peer-deps
 npm run check
 npm pack --ignore-scripts
-dsh plugin --profile web add /absolute/path/dsh-plugin-git-tree-viz-0.1.1.tgz
+dsh plugin --profile web add /absolute/path/dsh-plugin-git-tree-viz-0.1.2.tgz
 ```
 
 Open a conversation and select **Git history** alongside Chat, Trajectory and Context. Its repository follows that conversation's workspace automatically, including workspaces inside a Git subdirectory. Changing the conversation or workspace resets the graph and write access. If needed, enter another repository path manually. The view keeps graph interactions inside its own ShadowRoot and uses the existing authenticated Connection carrier for all Git operations.
